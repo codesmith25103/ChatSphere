@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Form, Link } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 // import styled from "./register.module.css";
+import "react-toastify/dist/ReactToastify.css";
 export default function Register() {
-    const [values, setValues]=useState({
-        username:"",
-        email:"",
-        password:"", 
-        confirmPassword:"",
-    });
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert("form");
+    // alert("form");
+    handleValidation();
   };
-  const handleValidation=()=>{
-    const {password, confirmPassword, username, email}=values
-    if(password!==confirmPassword)
-    {
-        toast.error("password and confirm password is not page")
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+  const handleValidation = () => {
+    const { password, confirmPassword, username, email } = values;
+    if (password !== confirmPassword) {
+      toast.error("password and confirm password is not page", toastOptions);
     }
-  }
+  };
   const handleChange = (event) => {
-        setValues({...values, [event.target.name]:event.target.value})
+    setValues({ ...values, [event.target.name]: event.target.value });
   };
   return (
     <>
@@ -61,6 +69,7 @@ export default function Register() {
           Already have an accont ? <Link to="/login">Login </Link>{" "}
         </span>
       </form>
+      <ToastContainer></ToastContainer>
     </>
   );
 }
