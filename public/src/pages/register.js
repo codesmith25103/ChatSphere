@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import axios from 'axios';
 // import styled from "./register.module.css";
 import "react-toastify/dist/ReactToastify.css";
+import { registerRoute } from "../utils/APIRoutes";
 export default function Register() {
   const [values, setValues] = useState({
     username: "",
@@ -10,12 +12,14 @@ export default function Register() {
     password: "",
     confirmPassword: "",
   });
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // alert("form");
     if(handleValidation()){
-        const {email, password, confirmPassword, password}=values;
-        
+        const {email, username, confirmPassword, password}=values;
+        const {data}=await axios.post(registerRoute, {
+            username, email, password
+        });
     }
   };
   const toastOptions = {
