@@ -13,7 +13,10 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // alert("form");
-    handleValidation();
+    if(handleValidation()){
+        const {email, password, confirmPassword, password}=values;
+        
+    }
   };
   const toastOptions = {
     position: "bottom-right",
@@ -26,7 +29,9 @@ export default function Register() {
     const { password, confirmPassword, username, email } = values;
     if (password !== confirmPassword) {
       toast.error("password and confirm password is not page", toastOptions);
+        return false;
     }
+    return true;
   };
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
